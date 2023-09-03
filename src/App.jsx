@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Button from "./components/Button";
+import StepMessage from "./components/StepMessage";
 
 const stepMessage = [
   "Learn React🌟",
@@ -9,6 +11,15 @@ const stepMessage = [
 function App() {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(true);
+
+  const nextButtonHandler = () => {
+    step < 3 ? setStep((curr) => curr + 1) : null;
+  };
+
+  const previousButtonHandler = () => {
+    step > 1 ? setStep((curr) => curr - 1) : null;
+  };
+
   return (
     <>
       <div className="mx-auto  max-w-md text-2xl mt-20 text-right font-bold">
@@ -41,24 +52,22 @@ function App() {
               <span className=" ">3</span>
             </div>
           </div>
-          <p className="my-4">
-            step{step}: {stepMessage[step - 1]}
-          </p>
+          <StepMessage step={step}>{stepMessage[step - 1]}</StepMessage>
           <div className="flex flex-row space-x-4 justify-between px-12 py-2">
-            <button
-              onClick={() => (step > 1 ? setStep((curr) => curr - 1) : null)}
-              type="button"
-              className="bg-blue-700 text-white text-sm px-4 py-1 rounded-full"
+            <Button
+              onClick={previousButtonHandler}
+              bgColor="blue-700"
+              textColor="white"
             >
-              previous
-            </button>
-            <button
-              onClick={() => (step < 3 ? setStep((curr) => curr + 1) : null)}
-              type="button"
-              className="bg-blue-700 text-white text-sm px-4 py-1 rounded-full"
+              👈 previous
+            </Button>
+            <Button
+              onClick={nextButtonHandler}
+              bgColor="blue-700"
+              textColor="white"
             >
-              next
-            </button>
+              next 👉
+            </Button>
           </div>
         </div>
       )}
